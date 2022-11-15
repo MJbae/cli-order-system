@@ -1,16 +1,22 @@
 package kr.co._29cm.homework.cli;
 
+import kr.co._29cm.homework.ItemService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Printer {
+    private final ItemService itemService;
+
+    public Printer(ItemService itemService) {
+        this.itemService = itemService;
+    }
 
     public void printGoodByeMessage() {
         System.out.println("종료");
     }
 
     public void printItemsAll() {
-        System.out.println("Item All");
+        itemService.loadAll().forEach(Object::toString);
     }
 
     public void printItemsOrdered() {
