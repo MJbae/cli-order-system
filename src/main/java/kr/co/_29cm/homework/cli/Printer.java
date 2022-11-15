@@ -16,4 +16,20 @@ public class Printer {
     public void printItemsOrdered() {
         System.out.println("items ordered ");
     }
+
+    public void printItemOrdered(String item) {
+        System.out.println(item + " is ordered ");
+    }
+
+    public void printCountOrdered(String count) {
+        System.out.println("count of items ordered is " + count);
+    }
+
+    public void itemPrompt() {
+        System.out.print("상품번호> ");
+    }
+
+    public void countPrompt() {
+        System.out.print("상품수량> ");
+    }
 }
