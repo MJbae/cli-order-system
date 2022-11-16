@@ -2,10 +2,13 @@ package kr.co._29cm.homework;
 
 import kr.co._29cm.homework.domain.Item;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
+@Transactional(readOnly = true)
 public class ItemService {
 
     private final ItemRepository repository;
@@ -16,5 +19,10 @@ public class ItemService {
 
     public List<Item> loadAll(){
         return repository.findAll();
+    }
+
+    public Item loadOne(Long id){
+        return repository.findById(id)
+                .orElseThrow(NoSuchElementException::new);
     }
 }
