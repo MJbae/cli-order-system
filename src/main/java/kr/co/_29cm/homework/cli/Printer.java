@@ -15,8 +15,10 @@ public class Printer {
         System.out.println("종료");
     }
 
+    // TODO: 표준출력 부분을 Wrapper로 감싸서 재사용하는 방향으로 리팩토링 필요
     public void printItemsAll() {
-        itemService.loadAll().forEach(Object::toString);
+        itemService.loadAll()
+                .forEach(item -> System.out.println(item.toString()));
     }
 
     public void printItemsOrdered() {
