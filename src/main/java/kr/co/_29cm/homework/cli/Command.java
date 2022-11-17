@@ -42,16 +42,12 @@ public class Command implements Quit.Command {
                 String countInput = reader.readLine();
 
                 if (itemInput.equals(" ") && countInput.equals(" ")) {
-                    System.out.println("itemId: " + orders.get(0).getItemId());
-                    System.out.println("itemCount: " + orders.get(0).getItemCount());
                     Order order = service.order(orders.get(0).getItemId(), orders.get(0).getItemCount());
                     printer.printItemsOrdered(order);
                     break;
                 }
 
-                orders.add(new OrderDto(Long.getLong(itemInput), Integer.getInteger(countInput)));
-                System.out.println("itemId: " + orders.get(0).getItemId());
-                System.out.println("itemCount: " + orders.get(0).getItemCount());
+                orders.add(new OrderDto(Long.parseLong(itemInput), Integer.parseInt(countInput)));
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
