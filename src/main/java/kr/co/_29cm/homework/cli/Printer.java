@@ -1,6 +1,7 @@
 package kr.co._29cm.homework.cli;
 
 import kr.co._29cm.homework.ItemService;
+import kr.co._29cm.homework.OrderItemService;
 import kr.co._29cm.homework.OrderService;
 import kr.co._29cm.homework.domain.Order;
 import org.springframework.stereotype.Component;
@@ -9,10 +10,12 @@ import org.springframework.stereotype.Component;
 public class Printer {
     private final ItemService itemService;
     private final OrderService orderService;
+    private final OrderItemService orderItemService;
 
-    public Printer(ItemService itemService, OrderService orderService) {
+    public Printer(ItemService itemService, OrderService orderService, OrderItemService orderItemService) {
         this.itemService = itemService;
         this.orderService = orderService;
+        this.orderItemService = orderItemService;
     }
 
     public void printGoodByeMessage() {
@@ -26,7 +29,7 @@ public class Printer {
     }
 
     public void printItemsOrdered(Order order) {
-        orderService.loadOrderItems(order)
+        orderItemService.loadBy(order)
                 .forEach(item -> System.out.println(item.toString()));
     }
 
