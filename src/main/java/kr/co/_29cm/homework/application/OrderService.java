@@ -1,5 +1,6 @@
 package kr.co._29cm.homework.application;
 
+import kr.co._29cm.homework.cli.OrderDto;
 import kr.co._29cm.homework.infra.OrderItemRepository;
 import kr.co._29cm.homework.infra.OrderRepository;
 import kr.co._29cm.homework.domain.Item;
@@ -24,12 +25,19 @@ public class OrderService {
         this.itemService = itemService;
     }
 
-    public Order order(Long itemId, int count) {
+    public Order order(List<OrderDto> orderDtos) {
         Order order = new Order();
-        Item itemOrdered = itemService.loadOne(itemId);
-        OrderItem orderItem = new OrderItem(order, itemOrdered, count);
-        // TODO: 부동 소수점을 고려한 연산 로직으로 변경
-        BigDecimal totalPrice = BigDecimal.valueOf(itemOrdered.getPrice().longValue() * orderItem.getCount());
+        BigDecimal totalPrice = new BigDecimal(0);
+
+        for (OrderDto orderDto : orderDtos){
+
+            Item itemOrdered = itemService.loadOne(orderDto.getItemId());
+            OrderItem orderItem = new OrderItem(order, itemOrdered, orderDto.getItemCount());
+            // TODO: 부동 소수점을 고려한 연산 로직으로 변경
+            BigDecimal priceSum = BigDecimal.valueOf(itemOrdered.getPrice().longValue() * orderItem.getCount());
+            totalPrice = totalPrice.add(priceSum);
+            orderItemRepository.save(orderItem);
+        }
 
         if (totalPrice.longValue() < 50000L) {
             order.markPrice(totalPrice.add(new BigDecimal(2500)));
@@ -38,7 +46,6 @@ public class OrderService {
         }
 
         repository.save(order);
-        orderItemRepository.save(orderItem);
 
         return order;
     }

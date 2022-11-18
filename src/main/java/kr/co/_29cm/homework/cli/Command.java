@@ -30,7 +30,7 @@ public class Command implements Quit.Command {
     private final ItemService itemService;
     private final OrderItemService orderItemService;
 
-    private final List<OrderDto> orders = new ArrayList<>();
+    private final List<OrderDto> orderDtos = new ArrayList<>();
 
     @ShellMethod(key = {"order", "o"}, value = "order")
     public void order() {
@@ -44,7 +44,7 @@ public class Command implements Quit.Command {
                 String itemInput = reader.readLine();
 
                 if (itemInput.equals(" ")) {
-                    Order order = orderService.order(orders.get(0).getItemId(), orders.get(0).getItemCount());
+                    Order order = orderService.order(orderDtos);
                     new OrderItemPrinter(orderItemService, order).show();
                     break;
                 }
@@ -52,7 +52,7 @@ public class Command implements Quit.Command {
                 orderCountPrompt.display();
                 String countInput = reader.readLine();
 
-                orders.add(new OrderDto(Long.parseLong(itemInput), Integer.parseInt(countInput)));
+                orderDtos.add(new OrderDto(Long.parseLong(itemInput), Integer.parseInt(countInput)));
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
