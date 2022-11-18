@@ -21,6 +21,16 @@ public class Item {
     private BigDecimal price;
     private int stockQuantity;
 
+    public Item() {
+    }
+
+    public Item(Long id, String name, BigDecimal price, int stockQuantity) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+    }
+
     public void increaseStock(int quantity) {
         this.stockQuantity += quantity;
     }
