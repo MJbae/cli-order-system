@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Getter
@@ -17,7 +18,7 @@ public class Item {
 
     @Column(name = "item_name")
     private String name;
-    private int price;
+    private BigDecimal price;
     private int stockQuantity;
 
     public void increaseStock(int quantity) {

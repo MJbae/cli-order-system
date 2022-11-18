@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "order")
+@Table(name = "order_table")
 public class Order {
 
     @Id
@@ -24,6 +24,10 @@ public class Order {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
+
+    public void markPrice(BigDecimal price){
+        this.price = price;
+    }
 
     @Override
     public String toString() {
