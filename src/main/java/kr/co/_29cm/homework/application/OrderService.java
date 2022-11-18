@@ -30,8 +30,13 @@ public class OrderService {
         OrderItem orderItem = new OrderItem(order, itemOrdered, count);
         // TODO: 부동 소수점을 고려한 연산 로직으로 변경
         BigDecimal totalPrice = BigDecimal.valueOf(itemOrdered.getPrice().longValue() * orderItem.getCount());
-        order.markPrice(totalPrice);
-        
+
+        if (totalPrice.longValue() < 50000L) {
+            order.markPrice(totalPrice.add(new BigDecimal(2500)));
+        } else {
+            order.markPrice(totalPrice);
+        }
+
         repository.save(order);
         orderItemRepository.save(orderItem);
 
@@ -39,7 +44,7 @@ public class OrderService {
     }
 
 
-    public List<OrderItem> loadOrderItems(Order order){
+    public List<OrderItem> loadOrderItems(Order order) {
         return order.getOrderItems();
     }
 }
