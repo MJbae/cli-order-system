@@ -1,4 +1,4 @@
-package kr.co._29cm.homework.cli;
+package kr.co._29cm.homework.cli.printer;
 
 import kr.co._29cm.homework.cli.interfaces.Printer;
 
