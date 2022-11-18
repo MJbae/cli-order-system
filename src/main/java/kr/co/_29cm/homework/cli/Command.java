@@ -1,6 +1,8 @@
 package kr.co._29cm.homework.cli;
 
+import kr.co._29cm.homework.ItemService;
 import kr.co._29cm.homework.OrderDto;
+import kr.co._29cm.homework.OrderItemService;
 import kr.co._29cm.homework.OrderService;
 import kr.co._29cm.homework.domain.Order;
 import lombok.RequiredArgsConstructor;
@@ -20,26 +22,26 @@ import java.util.List;
 public class Command implements Quit.Command {
     private final ItemIdPrompt itemPrompt;
     private final OrderCountPrompt orderCountPrompt;
-    private final Printer printer;
-    private final OrderService service;
+    private final OrderService orderService;
+    private final ItemService itemService;
+    private final OrderItemService orderItemService;
 
     private final List<OrderDto> orders = new ArrayList<>();
 
     @ShellMethod(key = {"order", "o"}, value = "order")
     public void order() {
-        printer.printItemsAll();
+        new ItemPrinter(itemService).show();
 
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            printer.printItemsAll();
 
             while (true) {
                 itemPrompt.display();
                 String itemInput = reader.readLine();
 
                 if (itemInput.equals(" ")) {
-                    Order order = service.order(orders.get(0).getItemId(), orders.get(0).getItemCount());
-                    printer.printItemsOrdered(order);
+                    Order order = orderService.order(orders.get(0).getItemId(), orders.get(0).getItemCount());
+                    new OrderItemPrinter(orderItemService, order).show();
                     break;
                 }
 
@@ -55,7 +57,7 @@ public class Command implements Quit.Command {
 
     @ShellMethod(key = {"quit", "q"}, value = "quit")
     public void quit() {
-        printer.printGoodByeMessage();
+        new ByePrinter().show();
         System.exit(0);
     }
 }
