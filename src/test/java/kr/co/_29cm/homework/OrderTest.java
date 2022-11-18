@@ -3,6 +3,7 @@ package kr.co._29cm.homework;
 import kr.co._29cm.homework.application.ItemService;
 import kr.co._29cm.homework.application.OrderItemService;
 import kr.co._29cm.homework.application.OrderService;
+import kr.co._29cm.homework.cli.OrderDto;
 import kr.co._29cm.homework.domain.Item;
 import kr.co._29cm.homework.domain.Order;
 import kr.co._29cm.homework.domain.OrderItem;
@@ -21,6 +22,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @DisplayName("OrderService")
@@ -37,6 +39,7 @@ class OrderTest {
     private OrderItem orderItem;
     private int orderCount;
     private BigDecimal itemPrice;
+    private List<OrderDto> orderDtos;
     private final Long itemId = 778422L;
     private final String itemName = "캠핑덕 우드롤테이블";
     private final int stockQuantity = 7;
@@ -44,6 +47,7 @@ class OrderTest {
 
     @BeforeEach
     void setUp() {
+        orderDtos = new ArrayList<>();
         orderService = new OrderService(orderRepository, orderItemRepository, itemService);
         orderItemService = new OrderItemService(orderItemRepository);
     }
@@ -70,7 +74,8 @@ class OrderTest {
             @Test
             @DisplayName("주문 엔티티의 price에 배송료를 포함하지 않고 반환한다")
             void it_returns_price_not_including_delivery_fee() {
-                Order order = orderService.order(itemId, orderCount);
+                orderDtos.add(new OrderDto(itemId, orderCount));
+                Order order = orderService.order(orderDtos);
 
                 BigDecimal actualPrice = order.getPrice();
                 BigDecimal expectedPrice = itemPrice.multiply(BigDecimal.valueOf(orderCount));
@@ -97,7 +102,8 @@ class OrderTest {
             @Test
             @DisplayName("주문 엔티티의 price에 배송료를 포함하여 반환한다")
             void it_returns_price_including_delivery_fee() {
-                Order order = orderService.order(itemId, orderCount);
+                orderDtos.add(new OrderDto(itemId, orderCount));
+                Order order = orderService.order(orderDtos);
 
                 BigDecimal actualPrice = order.getPrice();
                 BigDecimal expectedPrice = itemPrice.multiply(BigDecimal.valueOf(orderCount)).add(deliveryFee);
