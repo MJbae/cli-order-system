@@ -55,4 +55,14 @@ class OrderTest {
 
         assertThat(actualPrice).isEqualTo(expectedPrice);
     }
+
+    @Test
+    public void 주문금액이_5만원_미만이면_지불금액에_배송료가_붙는다() {
+        Order order = orderService.order(itemId, orderCount);
+
+        BigDecimal actualPrice = order.getPrice();
+        BigDecimal expectedPrice = itemPrice.multiply(BigDecimal.valueOf(orderCount * 2)).add(deliveryFee);
+
+        assertThat(actualPrice).isEqualTo(expectedPrice);
+    }
 }
