@@ -38,14 +38,14 @@ public class Command implements Quit.Command {
                 printer.itemPrompt();
                 String itemInput = reader.readLine();
 
-                printer.countPrompt();
-                String countInput = reader.readLine();
-
-                if (itemInput.equals(" ") && countInput.equals(" ")) {
+                if (itemInput.equals(" ")) {
                     Order order = service.order(orders.get(0).getItemId(), orders.get(0).getItemCount());
                     printer.printItemsOrdered(order);
                     break;
                 }
+
+                printer.countPrompt();
+                String countInput = reader.readLine();
 
                 orders.add(new OrderDto(Long.parseLong(itemInput), Integer.parseInt(countInput)));
             }
