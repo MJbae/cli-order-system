@@ -6,11 +6,12 @@ import org.springframework.shell.jline.PromptProvider;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomPromptProvider implements PromptProvider {
+public class IntroPrompt implements PromptProvider {
+    public final String INTRO_MESSAGE = "입력[o(order): 주문, q(quit): 종료]: ";
 
     @Override
     public AttributedString getPrompt() {
-        return new AttributedString("입력[o(주문), q(종료)]: ",
+        return new AttributedString(INTRO_MESSAGE,
                 AttributedStyle.DEFAULT.background(AttributedStyle.BLACK));
     }
 }
