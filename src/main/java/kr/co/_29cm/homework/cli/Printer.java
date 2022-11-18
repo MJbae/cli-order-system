@@ -51,12 +51,4 @@ public class Printer {
     public void printCountOrdered(String count) {
         System.out.println("count of items ordered is " + count);
     }
-
-    public void itemPrompt() {
-        System.out.print("상품번호> ");
-    }
-
-    public void countPrompt() {
-        System.out.print("상품수량> ");
-    }
 }

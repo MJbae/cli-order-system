@@ -3,6 +3,7 @@ package kr.co._29cm.homework.cli;
 import kr.co._29cm.homework.OrderDto;
 import kr.co._29cm.homework.OrderService;
 import kr.co._29cm.homework.domain.Order;
+import lombok.RequiredArgsConstructor;
 import org.jline.utils.InputStreamReader;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -15,16 +16,14 @@ import java.util.List;
 
 
 @ShellComponent
+@RequiredArgsConstructor
 public class Command implements Quit.Command {
+    private final ItemIdPrompt itemPrompt;
+    private final OrderCountPrompt orderCountPrompt;
     private final Printer printer;
     private final OrderService service;
 
     private final List<OrderDto> orders = new ArrayList<>();
-
-    public Command(Printer printer, OrderService service) {
-        this.printer = printer;
-        this.service = service;
-    }
 
     @ShellMethod(key = {"order", "o"}, value = "order")
     public void order() {
@@ -35,7 +34,7 @@ public class Command implements Quit.Command {
             printer.printItemsAll();
 
             while (true) {
-                printer.itemPrompt();
+                itemPrompt.display();
                 String itemInput = reader.readLine();
 
                 if (itemInput.equals(" ")) {
@@ -44,7 +43,7 @@ public class Command implements Quit.Command {
                     break;
                 }
 
-                printer.countPrompt();
+                orderCountPrompt.display();
                 String countInput = reader.readLine();
 
                 orders.add(new OrderDto(Long.parseLong(itemInput), Integer.parseInt(countInput)));
