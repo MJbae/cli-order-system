@@ -1,4 +1,4 @@
-package kr.co._29cm.homework.cli;
+package kr.co._29cm.homework.cli.prompt;
 
 import org.jline.utils.AttributedString;
 import org.jline.utils.AttributedStyle;

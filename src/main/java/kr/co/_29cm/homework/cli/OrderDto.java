@@ -1,4 +1,4 @@
-package kr.co._29cm.homework;
+package kr.co._29cm.homework.cli;
 
 import lombok.Getter;
 

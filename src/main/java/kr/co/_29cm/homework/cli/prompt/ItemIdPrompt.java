@@ -1,4 +1,4 @@
-package kr.co._29cm.homework.cli;
+package kr.co._29cm.homework.cli.prompt;
 
 import kr.co._29cm.homework.cli.interfaces.Prompt;
 import org.springframework.stereotype.Component;

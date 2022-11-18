@@ -1,8 +1,13 @@
 package kr.co._29cm.homework;
 
+import kr.co._29cm.homework.application.ItemService;
+import kr.co._29cm.homework.application.OrderItemService;
+import kr.co._29cm.homework.application.OrderService;
 import kr.co._29cm.homework.domain.Item;
 import kr.co._29cm.homework.domain.Order;
 import kr.co._29cm.homework.domain.OrderItem;
+import kr.co._29cm.homework.infra.OrderItemRepository;
+import kr.co._29cm.homework.infra.OrderRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.transaction.annotation.Transactional;

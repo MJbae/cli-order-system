@@ -1,5 +1,6 @@
-package kr.co._29cm.homework;
+package kr.co._29cm.homework.application;
 
+import kr.co._29cm.homework.infra.ItemRepository;
 import kr.co._29cm.homework.domain.Item;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,11 +1,9 @@
-package kr.co._29cm.homework.cli;
+package kr.co._29cm.homework.cli.printer;
 
-import kr.co._29cm.homework.OrderItemService;
+import kr.co._29cm.homework.application.OrderItemService;
 import kr.co._29cm.homework.cli.interfaces.Printer;
 import kr.co._29cm.homework.domain.Order;
 import kr.co._29cm.homework.domain.OrderItem;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 

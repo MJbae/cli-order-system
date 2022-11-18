@@ -1,5 +1,6 @@
 package kr.co._29cm.homework.domain;
 
+import kr.co._29cm.homework.exception.SoldOutException;
 import lombok.Getter;
 import lombok.Setter;
 

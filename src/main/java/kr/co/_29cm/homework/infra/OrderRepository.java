@@ -1,4 +1,4 @@
-package kr.co._29cm.homework;
+package kr.co._29cm.homework.infra;
 
 import kr.co._29cm.homework.domain.Order;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,5 +1,7 @@
-package kr.co._29cm.homework;
+package kr.co._29cm.homework.application;
 
+import kr.co._29cm.homework.infra.OrderItemRepository;
+import kr.co._29cm.homework.infra.OrderRepository;
 import kr.co._29cm.homework.domain.Item;
 import kr.co._29cm.homework.domain.Order;
 import kr.co._29cm.homework.domain.OrderItem;
