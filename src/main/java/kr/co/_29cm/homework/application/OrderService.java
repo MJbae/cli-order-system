@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,16 +28,16 @@ public class OrderService {
 
     public Order order(List<OrderDto> orderDtos) {
         Order order = new Order();
+        List<OrderItem> orderItems = new ArrayList<>();
         BigDecimal totalPrice = new BigDecimal(0);
 
-        for (OrderDto orderDto : orderDtos){
-
+        for (OrderDto orderDto : orderDtos) {
             Item itemOrdered = itemService.loadOne(orderDto.getItemId());
             OrderItem orderItem = new OrderItem(order, itemOrdered, orderDto.getItemCount());
+            orderItems.add(orderItem);
             // TODO: 부동 소수점을 고려한 연산 로직으로 변경
             BigDecimal priceSum = BigDecimal.valueOf(itemOrdered.getPrice().longValue() * orderItem.getCount());
             totalPrice = totalPrice.add(priceSum);
-            orderItemRepository.save(orderItem);
         }
 
         if (totalPrice.longValue() < 50000L) {
@@ -46,10 +47,12 @@ public class OrderService {
         }
 
         repository.save(order);
+        for (OrderItem orderItem : orderItems) {
+            orderItemRepository.save(orderItem);
+        }
 
         return order;
     }
-
 
     public List<OrderItem> loadOrderItems(Order order) {
         return order.getOrderItems();
