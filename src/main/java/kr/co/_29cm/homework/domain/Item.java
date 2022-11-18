@@ -28,7 +28,7 @@ public class Item {
     public void decreaseStock(int quantity) {
         int restStock = this.stockQuantity - quantity;
         if (restStock < 0) {
-            throw new SoldOutException("need more stock");
+            throw new SoldOutException();
         }
         this.stockQuantity = restStock;
     }
