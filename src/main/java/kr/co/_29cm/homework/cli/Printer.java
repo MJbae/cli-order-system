@@ -4,7 +4,10 @@ import kr.co._29cm.homework.ItemService;
 import kr.co._29cm.homework.OrderItemService;
 import kr.co._29cm.homework.OrderService;
 import kr.co._29cm.homework.domain.Order;
+import kr.co._29cm.homework.domain.OrderItem;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class Printer {
@@ -29,8 +32,16 @@ public class Printer {
     }
 
     public void printItemsOrdered(Order order) {
-        orderItemService.loadBy(order)
-                .forEach(item -> System.out.println(item.toString()));
+        List<OrderItem> orderItems = orderItemService.loadBy(order);
+
+        System.out.println("- - - - - - - - - - - - -");
+        for (OrderItem item : orderItems){
+            System.out.println(item.toString());
+        }
+        System.out.println("- - - - - - - - - - - - -");
+        System.out.println("주문금액: " + order.getPrice());
+        System.out.println("- - - - - - - - - - - - -");
+        System.out.println("지불금액: " + order.getPrice());
     }
 
     public void printItemOrdered(String item) {
