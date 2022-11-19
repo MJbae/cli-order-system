@@ -63,6 +63,7 @@ public class Command implements Quit.Command {
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (SoldOutException e){
+            orderDtos.clear();
             System.out.println(e.getMessage());
         }
     }
