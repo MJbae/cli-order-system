@@ -7,11 +7,9 @@ import kr.co._29cm.homework.infra.OrderRepository;
 import kr.co._29cm.homework.domain.Item;
 import kr.co._29cm.homework.domain.Order;
 import kr.co._29cm.homework.domain.OrderItem;
-import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.LockModeType;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +27,6 @@ public class OrderService {
     }
 
     @Transactional
-    @Lock(value = LockModeType.PESSIMISTIC_WRITE)
     public Order order(final List<OrderDto> orderDtos) {
         Order order = new Order();
         List<OrderItem> orderItems = new ArrayList<>();

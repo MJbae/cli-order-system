@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,8 +22,7 @@ public class ItemService {
     }
 
     public Item loadOne(Long id){
-        return repository.findById(id)
-                .orElseThrow(NoSuchElementException::new);
+        return repository.findByIdForUpdate(id);
     }
 
     @Transactional
