@@ -7,6 +7,7 @@ import kr.co._29cm.homework.cli.OrderDto;
 import kr.co._29cm.homework.domain.Item;
 import kr.co._29cm.homework.domain.Order;
 import kr.co._29cm.homework.domain.OrderItem;
+import kr.co._29cm.homework.exception.SoldOutException;
 import kr.co._29cm.homework.infra.OrderItemRepository;
 import kr.co._29cm.homework.infra.OrderRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
@@ -41,9 +43,9 @@ class OrderTest {
     private int orderCount;
     private BigDecimal itemPrice;
     private List<OrderDto> orderDtos;
+    private int stockQuantity;
     private final Long itemId = 778422L;
     private final String itemName = "캠핑덕 우드롤테이블";
-    private final int stockQuantity = 7;
     private final BigDecimal deliveryFee = BigDecimal.valueOf(2500);
 
     @BeforeEach
@@ -63,6 +65,7 @@ class OrderTest {
             @BeforeEach
             void setUp() {
                 orderCount = 2;
+                stockQuantity = 3;
                 itemPrice = BigDecimal.valueOf(45000);
 
                 item = new Item(itemId, itemName, itemPrice, stockQuantity);
@@ -91,6 +94,7 @@ class OrderTest {
             @BeforeEach
             void setUp() {
                 orderCount = 1;
+                stockQuantity = 3;
                 itemPrice = BigDecimal.valueOf(45000);
 
                 item = new Item(itemId, itemName, itemPrice, stockQuantity);
@@ -119,6 +123,7 @@ class OrderTest {
             @BeforeEach
             void setUp() {
                 orderCount = 1;
+                stockQuantity = 3;
                 itemPrice = BigDecimal.valueOf(45000);
 
                 item = new Item(itemId, itemName, itemPrice, stockQuantity);
@@ -141,6 +146,32 @@ class OrderTest {
                 expectedPrice = expectedPrice.add(itemPrice.multiply(BigDecimal.valueOf(orderCount)));
 
                 assertThat(actualPrice).isEqualTo(expectedPrice);
+            }
+        }
+
+        @Nested
+        @DisplayName("만약 상품의 재고 보다 많은 상품을 주문한다면")
+        class Context_with_order_item_more_than_its_stock_quantity {
+            @BeforeEach
+            void setUp() {
+                orderCount = 4;
+                stockQuantity = 3;
+                itemPrice = BigDecimal.valueOf(45000);
+
+                item = new Item(itemId, itemName, itemPrice, stockQuantity);
+                orderItem = new OrderItem(orderMocking, item, orderCount);
+
+                given(itemService.loadOne(any())).willReturn(item);
+                given(orderItemRepository.findByOrder(any())).willReturn(List.of(orderItem));
+            }
+
+            @Test
+            @DisplayName("재고부족 예외를 발생시킨다")
+            void it_returns_price_including_every_items_ordered() {
+                orderDtos.add(new OrderDto(itemId, orderCount));
+
+                assertThatThrownBy(() -> orderService.order(orderDtos))
+                        .isInstanceOf(SoldOutException.class);
             }
         }
     }
