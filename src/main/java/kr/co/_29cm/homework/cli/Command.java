@@ -46,6 +46,7 @@ public class Command implements Quit.Command {
                 if (itemInput.equals(" ")) {
                     Order order = orderService.order(orderDtos);
                     new OrderItemPrinter(orderItemService, order).show();
+                    orderDtos.clear();
                     break;
                 }
 
