@@ -1,6 +1,7 @@
 package kr.co._29cm.homework.application;
 
 import kr.co._29cm.homework.cli.OrderDto;
+import kr.co._29cm.homework.exception.SoldOutException;
 import kr.co._29cm.homework.infra.OrderItemRepository;
 import kr.co._29cm.homework.infra.OrderRepository;
 import kr.co._29cm.homework.domain.Item;
@@ -33,6 +34,11 @@ public class OrderService {
 
         for (OrderDto orderDto : orderDtos) {
             Item itemOrdered = itemService.loadOne(orderDto.getItemId());
+
+            if (orderDto.getItemCount() > itemOrdered.getStockQuantity()) {
+                throw new SoldOutException();
+            }
+
             OrderItem orderItem = new OrderItem(order, itemOrdered, orderDto.getItemCount());
             orderItems.add(orderItem);
             // TODO: 부동 소수점을 고려한 연산 로직으로 변경

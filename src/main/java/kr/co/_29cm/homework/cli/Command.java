@@ -9,8 +9,11 @@ import kr.co._29cm.homework.cli.printer.OrderItemPrinter;
 import kr.co._29cm.homework.cli.prompt.ItemIdPrompt;
 import kr.co._29cm.homework.cli.prompt.OrderCountPrompt;
 import kr.co._29cm.homework.domain.Order;
+import kr.co._29cm.homework.exception.SoldOutException;
 import lombok.RequiredArgsConstructor;
 import org.jline.utils.InputStreamReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.commands.Quit;
@@ -31,6 +34,8 @@ public class Command implements Quit.Command {
     private final OrderItemService orderItemService;
 
     private final List<OrderDto> orderDtos = new ArrayList<>();
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @ShellMethod(key = {"order", "o"}, value = "order")
     public void order() {
@@ -57,6 +62,8 @@ public class Command implements Quit.Command {
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } catch (SoldOutException e){
+            System.out.println(e.getMessage());
         }
     }
 
