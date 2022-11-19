@@ -44,9 +44,9 @@ public class OrderConcurrencyTest {
     @DisplayName("동시적으로 복수의 주문이 들어온다면 재고수만큼만 주문에 성공하고 나머지 주문에서는 재고부족 예외가 발생한다")
     void test_in_concurrency_orders_success_only_under_stock_quantity_else_throw_exception() throws InterruptedException {
         AtomicInteger successCount = new AtomicInteger();
-        int numberOfExecution = 10;
+        int numberOfExecution = 100;
 
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
         CountDownLatch countDownLatch = new CountDownLatch(numberOfExecution);
 
         for (int i = 1; i <= numberOfExecution; i++) {
