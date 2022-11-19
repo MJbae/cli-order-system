@@ -37,6 +37,7 @@ class OrderTest {
     private final Order orderMocking = mock(Order.class);
     private Item item;
     private OrderItem orderItem;
+    private OrderItem secondOrderItem;
     private int orderCount;
     private BigDecimal itemPrice;
     private List<OrderDto> orderDtos;
@@ -57,7 +58,7 @@ class OrderTest {
     class Describe_order {
 
         @Nested
-        @DisplayName("만약 주문금액이_5만원_이상이면")
+        @DisplayName("만약 주문금액이 5만원 이상이면")
         class Context_with_order_price_higher_than_or_equal_to_50000 {
             @BeforeEach
             void setUp() {
@@ -85,7 +86,7 @@ class OrderTest {
         }
 
         @Nested
-        @DisplayName("만약 주문금액이_5만원_미만이면")
+        @DisplayName("만약 주문금액이 5만원 미만이면")
         class Context_with_order_price_lower_than_50000 {
             @BeforeEach
             void setUp() {
@@ -107,6 +108,37 @@ class OrderTest {
 
                 BigDecimal actualPrice = order.getPrice();
                 BigDecimal expectedPrice = itemPrice.multiply(BigDecimal.valueOf(orderCount)).add(deliveryFee);
+
+                assertThat(actualPrice).isEqualTo(expectedPrice);
+            }
+        }
+
+        @Nested
+        @DisplayName("만약 두 개 이상의 상품을 주문하면")
+        class Context_with_more_than_two_items {
+            @BeforeEach
+            void setUp() {
+                orderCount = 1;
+                itemPrice = BigDecimal.valueOf(45000);
+
+                item = new Item(itemId, itemName, itemPrice, stockQuantity);
+                orderItem = new OrderItem(orderMocking, item, orderCount);
+                secondOrderItem = new OrderItem(orderMocking, item, orderCount);
+
+                given(itemService.loadOne(any())).willReturn(item);
+                given(orderItemRepository.findByOrder(any())).willReturn(List.of(orderItem, secondOrderItem));
+            }
+
+            @Test
+            @DisplayName("모든 상품의 구입액을 주문 엔티티의 price에 반영하여 반환한다")
+            void it_returns_price_including_every_items_ordered() {
+                orderDtos.add(new OrderDto(itemId, orderCount));
+                orderDtos.add(new OrderDto(itemId, orderCount));
+                Order order = orderService.order(orderDtos);
+
+                BigDecimal actualPrice = order.getPrice();
+                BigDecimal expectedPrice = itemPrice.multiply(BigDecimal.valueOf(orderCount));
+                expectedPrice = expectedPrice.add(itemPrice.multiply(BigDecimal.valueOf(orderCount)));
 
                 assertThat(actualPrice).isEqualTo(expectedPrice);
             }
