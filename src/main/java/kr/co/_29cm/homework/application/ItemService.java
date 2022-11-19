@@ -27,6 +27,7 @@ public class ItemService {
                 .orElseThrow(NoSuchElementException::new);
     }
 
+    @Transactional
     public Item save(Item item){
         return repository.save(item);
     }
