@@ -26,4 +26,8 @@ public class ItemService {
         return repository.findById(id)
                 .orElseThrow(NoSuchElementException::new);
     }
+
+    public Item save(Item item){
+        return repository.save(item);
+    }
 }

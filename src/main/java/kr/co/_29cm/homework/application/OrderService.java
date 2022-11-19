@@ -34,16 +34,23 @@ public class OrderService {
 
         for (OrderDto orderDto : orderDtos) {
             Item itemOrdered = itemService.loadOne(orderDto.getItemId());
+            int itemCountOrdering = orderDto.getItemCount();
+            int itemStockQuantity = itemOrdered.getStockQuantity();
 
-            if (orderDto.getItemCount() > itemOrdered.getStockQuantity()) {
+            if (itemCountOrdering > itemStockQuantity) {
                 throw new SoldOutException();
             }
 
-            OrderItem orderItem = new OrderItem(order, itemOrdered, orderDto.getItemCount());
+            itemOrdered.decreaseStock(itemCountOrdering);
+
+            OrderItem orderItem = new OrderItem(order, itemOrdered, itemCountOrdering);
             orderItems.add(orderItem);
+
             // TODO: 부동 소수점을 고려한 연산 로직으로 변경
             BigDecimal priceSum = BigDecimal.valueOf(itemOrdered.getPrice().longValue() * orderItem.getCount());
             totalPrice = totalPrice.add(priceSum);
+
+            itemService.save(itemOrdered);
         }
 
         if (totalPrice.longValue() < 50000L) {
