@@ -1,25 +1,25 @@
 package kr.co._29cm.homework.cli.printer;
 
 import kr.co._29cm.homework.application.OrderProductService;
-import kr.co._29cm.homework.cli.interfaces.Printer;
+import kr.co._29cm.homework.cli.interfaces.OrderItemPrinter;
 import kr.co._29cm.homework.domain.Order;
 import kr.co._29cm.homework.domain.OrderItem;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-public class OrderItemPrinter implements Printer {
+@Component
+public class OrderProductPrinter implements OrderItemPrinter<Order> {
     private final OrderProductService orderProductService;
-    private final Order order;
 
-    public OrderItemPrinter(OrderProductService orderProductService, Order order) {
+    public OrderProductPrinter(OrderProductService orderProductService) {
         this.orderProductService = orderProductService;
-        this.order = order;
     }
 
     @Override
-    public void show() {
-        List<OrderItem> orderItems = orderProductService.loadOneBy(this.order);
+    public void showBy(Order order) {
+        List<OrderItem> orderItems = orderProductService.loadOneBy(order);
 
         System.out.println("- - - - - - - - - - - - - - - - - - - -");
 
@@ -33,7 +33,7 @@ public class OrderItemPrinter implements Printer {
 
         System.out.println("- - - - - - - - - - - - - - - - - - --");
 
-        System.out.println(getPricePayingMessage());
+        System.out.println(getPricePayingMessage(order));
     }
 
     private String getOrderItemMessage(OrderItem orderItem){
@@ -50,7 +50,7 @@ public class OrderItemPrinter implements Printer {
         return "주문금액: " + totalPrice + "원";
     }
 
-    private String getPricePayingMessage(){
-        return "지불금액: " + this.order.getPrice() + "원";
+    private String getPricePayingMessage(Order order){
+        return "지불금액: " + order.getPrice() + "원";
     }
 }
