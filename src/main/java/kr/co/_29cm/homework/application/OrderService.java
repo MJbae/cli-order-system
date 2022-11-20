@@ -20,6 +20,9 @@ public class OrderService {
     private final OrderItemService orderItemService;
     private final ItemService itemService;
 
+    private final BigDecimal deliveryFee = new BigDecimal(2500);
+    private final BigDecimal amountLimit = new BigDecimal(50000);
+
     public OrderService(OrderRepository repository, OrderItemService orderItemService, ItemService itemService) {
         this.repository = repository;
         this.orderItemService = orderItemService;
@@ -52,15 +55,21 @@ public class OrderService {
             itemService.save(item);
         }
 
-        if (totalPrice.longValue() < 50000L) {
-            order.markPrice(totalPrice.add(new BigDecimal(2500)));
-        } else {
-            order.markPrice(totalPrice);
-        }
+        addDeliveryFeeByTotalPrice(order, totalPrice, amountLimit, deliveryFee);
 
         this.save(order, orderItems);
 
         return order;
+    }
+
+    private void addDeliveryFeeByTotalPrice(Order order, BigDecimal totalPrice,
+                                            BigDecimal amountLimit, BigDecimal deliveryFee) {
+        if (totalPrice.longValue() < amountLimit.longValue()) {
+            order.markPrice(totalPrice.add(deliveryFee));
+            return;
+        }
+
+        order.markPrice(totalPrice);
     }
 
     private void save(Order order, List<OrderItem> orderItems){
