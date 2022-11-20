@@ -32,10 +32,6 @@ public class Item {
         this.stockQuantity = stockQuantity;
     }
 
-    public void increaseStock(int quantity) {
-        this.stockQuantity += quantity;
-    }
-
     public void decreaseStock(int quantity) {
         int restStock = this.stockQuantity - quantity;
         if (restStock < 0) {
