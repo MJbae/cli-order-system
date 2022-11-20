@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Getter
@@ -30,6 +31,10 @@ public class OrderItem {
         this.order = order;
         this.item = item;
         this.count = count;
+    }
+
+    public BigDecimal getPriceByMultiplyingCount(){
+        return BigDecimal.valueOf(this.item.getPrice().longValue() * this.count);
     }
 
     @Override

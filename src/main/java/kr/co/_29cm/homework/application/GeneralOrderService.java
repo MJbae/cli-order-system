@@ -49,8 +49,7 @@ public class GeneralOrderService implements OrderService<Order, OrderDto> {
             OrderItem orderItem = new OrderItem(order, item, itemCountOrdering);
             orderItems.add(orderItem);
 
-            // TODO: 부동 소수점을 고려한 연산 로직으로 변경
-            BigDecimal priceSum = BigDecimal.valueOf(item.getPrice().longValue() * orderItem.getCount());
+            BigDecimal priceSum = orderItem.getPriceByMultiplyingCount();
             totalPrice = totalPrice.add(priceSum);
 
             productService.save(item);
