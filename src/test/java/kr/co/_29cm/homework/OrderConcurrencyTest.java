@@ -1,7 +1,7 @@
 package kr.co._29cm.homework;
 
-import kr.co._29cm.homework.application.ItemService;
-import kr.co._29cm.homework.application.OrderService;
+import kr.co._29cm.homework.application.ProductService;
+import kr.co._29cm.homework.application.GeneralOrderService;
 import kr.co._29cm.homework.cli.OrderDto;
 import kr.co._29cm.homework.domain.Item;
 import kr.co._29cm.homework.exception.SoldOutException;
@@ -23,9 +23,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 public class OrderConcurrencyTest {
     @Autowired
-    private OrderService service;
+    private GeneralOrderService service;
     @Autowired
-    private ItemService itemService;
+    private ProductService productService;
 
     private final List<OrderDto> firstOrderDtos = new ArrayList<>();
 
@@ -35,7 +35,7 @@ public class OrderConcurrencyTest {
 
     @BeforeEach
     void setUp() {
-        Item item = itemService.loadOneBy(itemId);
+        Item item = productService.loadOneBy(itemId);
         stockQuantity = item.getStockQuantity();
         firstOrderDtos.add(new OrderDto(itemId, orderItemCount));
     }

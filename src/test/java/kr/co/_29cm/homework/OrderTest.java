@@ -1,8 +1,8 @@
 package kr.co._29cm.homework;
 
-import kr.co._29cm.homework.application.ItemService;
-import kr.co._29cm.homework.application.OrderItemService;
-import kr.co._29cm.homework.application.OrderService;
+import kr.co._29cm.homework.application.ProductService;
+import kr.co._29cm.homework.application.OrderProductService;
+import kr.co._29cm.homework.application.GeneralOrderService;
 import kr.co._29cm.homework.cli.OrderDto;
 import kr.co._29cm.homework.domain.Item;
 import kr.co._29cm.homework.domain.Order;
@@ -30,12 +30,12 @@ import java.util.List;
 @DisplayName("OrderService")
 @Transactional
 class OrderTest {
-    private OrderService service;
-    private OrderItemService orderItemService;
+    private GeneralOrderService service;
+    private OrderProductService orderProductService;
 
     private final OrderRepository repository = mock(OrderRepository.class);
     private final OrderItemRepository orderItemRepository = mock(OrderItemRepository.class);
-    private final ItemService itemService = mock(ItemService.class);
+    private final ProductService productService = mock(ProductService.class);
     private final Order orderMocking = mock(Order.class);
     private Item item;
     private OrderItem orderItem;
@@ -51,8 +51,8 @@ class OrderTest {
     @BeforeEach
     void setUp() {
         orderDtos = new ArrayList<>();
-        orderItemService = new OrderItemService(orderItemRepository);
-        service = new OrderService(repository, orderItemService, itemService);
+        orderProductService = new OrderProductService(orderItemRepository);
+        service = new GeneralOrderService(repository, orderProductService, productService);
     }
 
     @Nested
@@ -71,7 +71,7 @@ class OrderTest {
                 item = new Item(itemId, itemName, itemPrice, stockQuantity);
                 orderItem = new OrderItem(orderMocking, item, orderCount);
 
-                given(itemService.loadOneBy(any())).willReturn(item);
+                given(productService.loadOneBy(any())).willReturn(item);
             }
 
             @Test
@@ -99,7 +99,7 @@ class OrderTest {
                 item = new Item(itemId, itemName, itemPrice, stockQuantity);
                 orderItem = new OrderItem(orderMocking, item, orderCount);
 
-                given(itemService.loadOneBy(any())).willReturn(item);
+                given(productService.loadOneBy(any())).willReturn(item);
             }
 
             @Test
@@ -128,7 +128,7 @@ class OrderTest {
                 orderItem = new OrderItem(orderMocking, item, orderCount);
                 secondOrderItem = new OrderItem(orderMocking, item, orderCount);
 
-                given(itemService.loadOneBy(any())).willReturn(item);
+                given(productService.loadOneBy(any())).willReturn(item);
             }
 
             @Test
@@ -158,7 +158,7 @@ class OrderTest {
                 item = new Item(itemId, itemName, itemPrice, stockQuantity);
                 orderItem = new OrderItem(orderMocking, item, orderCount);
 
-                given(itemService.loadOneBy(any())).willReturn(item);
+                given(productService.loadOneBy(any())).willReturn(item);
             }
 
             @Test

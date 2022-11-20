@@ -1,6 +1,6 @@
 package kr.co._29cm.homework.cli.printer;
 
-import kr.co._29cm.homework.application.OrderItemService;
+import kr.co._29cm.homework.application.OrderProductService;
 import kr.co._29cm.homework.cli.interfaces.Printer;
 import kr.co._29cm.homework.domain.Order;
 import kr.co._29cm.homework.domain.OrderItem;
@@ -9,17 +9,17 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class OrderItemPrinter implements Printer {
-    private final OrderItemService orderItemService;
+    private final OrderProductService orderProductService;
     private final Order order;
 
-    public OrderItemPrinter(OrderItemService orderItemService, Order order) {
-        this.orderItemService = orderItemService;
+    public OrderItemPrinter(OrderProductService orderProductService, Order order) {
+        this.orderProductService = orderProductService;
         this.order = order;
     }
 
     @Override
     public void show() {
-        List<OrderItem> orderItems = orderItemService.loadOneBy(this.order);
+        List<OrderItem> orderItems = orderProductService.loadOneBy(this.order);
 
         System.out.println("- - - - - - - - - - - - - - - - - - - -");
 

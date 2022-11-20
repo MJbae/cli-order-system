@@ -9,24 +9,24 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
-public class ItemService {
+public class ProductService {
 
     private final ItemRepository repository;
 
-    public ItemService(ItemRepository repository){
+    public ProductService(ItemRepository repository) {
         this.repository = repository;
     }
 
-    public List<Item> loadAll(){
+    public List<Item> loadAll() {
         return repository.findAll();
     }
 
-    public Item loadOneBy(Long id){
+    public Item loadOneBy(Long id) {
         return repository.findByIdForUpdate(id);
     }
 
     @Transactional
-    public void save(Item item){
+    public void save(Item item) {
         repository.save(item);
     }
 }

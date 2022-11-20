@@ -1,15 +1,15 @@
 package kr.co._29cm.homework.cli.printer;
 
-import kr.co._29cm.homework.application.ItemService;
+import kr.co._29cm.homework.application.ProductService;
 import kr.co._29cm.homework.cli.interfaces.Printer;
 import kr.co._29cm.homework.domain.Item;
 
 public class ItemPrinter implements Printer {
 
-    private final ItemService itemService;
+    private final ProductService productService;
 
-    public ItemPrinter(ItemService itemService){
-        this.itemService = itemService;
+    public ItemPrinter(ProductService productService){
+        this.productService = productService;
     }
 
     private final String listCategory = "상품번호                 상품명               판매가격                재고수";
@@ -17,7 +17,7 @@ public class ItemPrinter implements Printer {
     @Override
     public void show() {
         System.out.println(listCategory);
-        itemService.loadAll()
+        productService.loadAll()
                 .forEach(item -> System.out.println(getItemMessage(item)));
     }
 

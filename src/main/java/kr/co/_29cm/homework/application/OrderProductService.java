@@ -10,19 +10,19 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
-public class OrderItemService {
+public class OrderProductService {
     private final OrderItemRepository repository;
 
-    public OrderItemService(OrderItemRepository orderItemRepository) {
+    public OrderProductService(OrderItemRepository orderItemRepository) {
         this.repository = orderItemRepository;
     }
 
-    public List<OrderItem> loadOneBy(Order order){
+    public List<OrderItem> loadOneBy(Order order) {
         return repository.findByOrder(order);
     }
 
     @Transactional
-    public void save(OrderItem orderItem){
+    public void save(OrderItem orderItem) {
         repository.save(orderItem);
     }
 }

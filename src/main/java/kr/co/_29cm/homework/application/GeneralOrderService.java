@@ -15,18 +15,18 @@ import java.util.List;
 
 @Service
 @Transactional
-public class OrderService {
+public class GeneralOrderService {
     private final OrderRepository repository;
-    private final OrderItemService orderItemService;
-    private final ItemService itemService;
+    private final OrderProductService orderProductService;
+    private final ProductService productService;
 
     private final BigDecimal deliveryFee = new BigDecimal(2500);
     private final BigDecimal amountLimit = new BigDecimal(50000);
 
-    public OrderService(OrderRepository repository, OrderItemService orderItemService, ItemService itemService) {
+    public GeneralOrderService(OrderRepository repository, OrderProductService orderProductService, ProductService productService) {
         this.repository = repository;
-        this.orderItemService = orderItemService;
-        this.itemService = itemService;
+        this.orderProductService = orderProductService;
+        this.productService = productService;
     }
 
     public Order order(final List<OrderDto> orderDtos) {
@@ -35,7 +35,7 @@ public class OrderService {
         BigDecimal totalPrice = new BigDecimal(0);
 
         for (OrderDto orderDto : orderDtos) {
-            Item item = itemService.loadOneBy(orderDto.getItemId());
+            Item item = productService.loadOneBy(orderDto.getItemId());
             int itemCountOrdering = orderDto.getItemCount();
             int itemStockQuantity = item.getStockQuantity();
 
@@ -52,7 +52,7 @@ public class OrderService {
             BigDecimal priceSum = BigDecimal.valueOf(item.getPrice().longValue() * orderItem.getCount());
             totalPrice = totalPrice.add(priceSum);
 
-            itemService.save(item);
+            productService.save(item);
         }
 
         addDeliveryFeeByTotalPrice(order, totalPrice, amountLimit, deliveryFee);
@@ -72,11 +72,11 @@ public class OrderService {
         order.markPrice(totalPrice);
     }
 
-    private void save(Order order, List<OrderItem> orderItems){
+    private void save(Order order, List<OrderItem> orderItems) {
         repository.save(order);
 
         for (OrderItem orderItem : orderItems) {
-            orderItemService.save(orderItem);
+            orderProductService.save(orderItem);
         }
 
     }

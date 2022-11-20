@@ -1,8 +1,8 @@
 package kr.co._29cm.homework.cli;
 
-import kr.co._29cm.homework.application.ItemService;
-import kr.co._29cm.homework.application.OrderItemService;
-import kr.co._29cm.homework.application.OrderService;
+import kr.co._29cm.homework.application.ProductService;
+import kr.co._29cm.homework.application.OrderProductService;
+import kr.co._29cm.homework.application.GeneralOrderService;
 import kr.co._29cm.homework.cli.printer.ByePrinter;
 import kr.co._29cm.homework.cli.printer.ItemPrinter;
 import kr.co._29cm.homework.cli.printer.OrderItemPrinter;
@@ -29,9 +29,9 @@ import java.util.List;
 public class Command implements Quit.Command {
     private final ItemIdPrompt itemPrompt;
     private final OrderCountPrompt orderCountPrompt;
-    private final OrderService orderService;
-    private final ItemService itemService;
-    private final OrderItemService orderItemService;
+    private final GeneralOrderService generalOrderService;
+    private final ProductService productService;
+    private final OrderProductService orderProductService;
 
     private final List<OrderDto> orderDtos = new ArrayList<>();
 
@@ -39,7 +39,7 @@ public class Command implements Quit.Command {
 
     @ShellMethod(key = {"order", "o"}, value = "order")
     public void order() {
-        new ItemPrinter(itemService).show();
+        new ItemPrinter(productService).show();
 
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -49,8 +49,8 @@ public class Command implements Quit.Command {
                 String itemInput = reader.readLine();
 
                 if (itemInput.equals(" ")) {
-                    Order order = orderService.order(orderDtos);
-                    new OrderItemPrinter(orderItemService, order).show();
+                    Order order = generalOrderService.order(orderDtos);
+                    new OrderItemPrinter(orderProductService, order).show();
                     orderDtos.clear();
                     break;
                 }
