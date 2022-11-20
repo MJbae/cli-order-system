@@ -5,6 +5,7 @@ import kr.co._29cm.homework.cli.interfaces.Printer;
 import kr.co._29cm.homework.domain.Order;
 import kr.co._29cm.homework.domain.OrderItem;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class OrderItemPrinter implements Printer {
@@ -20,13 +21,36 @@ public class OrderItemPrinter implements Printer {
     public void show() {
         List<OrderItem> orderItems = orderItemService.loadOneBy(this.order);
 
-        System.out.println("- - - - - - - - - - - - -");
-        for (OrderItem item : orderItems) {
-            System.out.println(item.toString());
+        System.out.println("- - - - - - - - - - - - - - - - - - - -");
+
+        orderItems.forEach(
+                orderItem -> System.out.println(orderItemMessage(orderItem))
+        );
+
+        System.out.println("- - - - - - - - - - - - -- - - - - - -");
+
+        System.out.println(orderPriceMessage(orderItems));
+
+        System.out.println("- - - - - - - - - - - - - - - - - - --");
+
+        System.out.println(pricePayingMessage());
+    }
+
+    private String orderItemMessage (OrderItem orderItem){
+        return orderItem.getItem().getName() + " - " + orderItem.getCount() + "개";
+    }
+
+    private String orderPriceMessage (List<OrderItem> orderItems){
+        BigDecimal totalPrice = new BigDecimal(0);
+        for (OrderItem orderItem : orderItems){
+            BigDecimal priceSum = BigDecimal.valueOf(orderItem.getItem().getPrice().longValue() * orderItem.getCount());
+            totalPrice = totalPrice.add(priceSum);
         }
-        System.out.println("- - - - - - - - - - - - -");
-        System.out.println("주문금액: " + this.order.getPrice());
-        System.out.println("- - - - - - - - - - - - -");
-        System.out.println("지불금액: " + this.order.getPrice());
+
+        return "주문금액: " + totalPrice + "원";
+    }
+
+    private String pricePayingMessage (){
+        return "지불금액: " + this.order.getPrice() + "원";
     }
 }
