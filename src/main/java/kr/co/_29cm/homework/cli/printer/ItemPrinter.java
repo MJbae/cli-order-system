@@ -3,16 +3,13 @@ package kr.co._29cm.homework.cli.printer;
 import kr.co._29cm.homework.application.ProductService;
 import kr.co._29cm.homework.cli.interfaces.Printer;
 import kr.co._29cm.homework.domain.Item;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class ItemPrinter implements Printer {
-
     private final ProductService productService;
-
-    public ItemPrinter(ProductService productService){
-        this.productService = productService;
-    }
 
     private final String listCategory = "상품번호                 상품명               판매가격                재고수";
 

@@ -1,16 +1,12 @@
 package kr.co._29cm.homework.domain;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
-@Setter
 @Table(name = "order_table")
 public class Order {
 

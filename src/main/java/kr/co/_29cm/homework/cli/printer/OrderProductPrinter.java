@@ -4,18 +4,16 @@ import kr.co._29cm.homework.application.OrderProductService;
 import kr.co._29cm.homework.cli.interfaces.OrderItemPrinter;
 import kr.co._29cm.homework.domain.Order;
 import kr.co._29cm.homework.domain.OrderItem;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class OrderProductPrinter implements OrderItemPrinter<Order> {
     private final OrderProductService orderProductService;
-
-    public OrderProductPrinter(OrderProductService orderProductService) {
-        this.orderProductService = orderProductService;
-    }
 
     @Override
     public void showBy(Order order) {

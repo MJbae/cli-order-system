@@ -7,6 +7,7 @@ import kr.co._29cm.homework.infra.OrderRepository;
 import kr.co._29cm.homework.domain.Item;
 import kr.co._29cm.homework.domain.Order;
 import kr.co._29cm.homework.domain.OrderItem;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class GeneralOrderService implements OrderService<Order, OrderDto> {
     private final OrderRepository repository;
     private final OrderProductService orderProductService;
@@ -23,12 +25,6 @@ public class GeneralOrderService implements OrderService<Order, OrderDto> {
 
     private final BigDecimal deliveryFee = new BigDecimal(2500);
     private final BigDecimal amountLimit = new BigDecimal(50000);
-
-    public GeneralOrderService(OrderRepository repository, OrderProductService orderProductService, ProductService productService) {
-        this.repository = repository;
-        this.orderProductService = orderProductService;
-        this.productService = productService;
-    }
 
     public Order order(final List<OrderDto> orderDtos) {
         Order order = new Order();
