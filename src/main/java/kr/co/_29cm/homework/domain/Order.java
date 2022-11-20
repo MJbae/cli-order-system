@@ -18,10 +18,7 @@ public class Order {
     @Column(name = "order_price")
     private BigDecimal price;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderItem> orderItems = new ArrayList<>();
-
-    public void markPrice(BigDecimal price){
+    public void markPrice(BigDecimal price) {
         this.price = price;
     }
 
