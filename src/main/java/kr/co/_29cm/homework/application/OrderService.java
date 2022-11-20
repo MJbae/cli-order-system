@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class OrderService {
     private final OrderRepository repository;
     private final OrderItemService orderItemService;
@@ -26,7 +27,6 @@ public class OrderService {
         this.itemService = itemService;
     }
 
-    @Transactional
     public Order order(final List<OrderDto> orderDtos) {
         Order order = new Order();
         List<OrderItem> orderItems = new ArrayList<>();
@@ -65,9 +65,5 @@ public class OrderService {
         }
 
         return order;
-    }
-
-    public List<OrderItem> loadOrderItems(Order order) {
-        return order.getOrderItems();
     }
 }
