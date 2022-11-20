@@ -24,23 +24,23 @@ public class OrderItemPrinter implements Printer {
         System.out.println("- - - - - - - - - - - - - - - - - - - -");
 
         orderItems.forEach(
-                orderItem -> System.out.println(orderItemMessage(orderItem))
+                orderItem -> System.out.println(getOrderItemMessage(orderItem))
         );
 
         System.out.println("- - - - - - - - - - - - -- - - - - - -");
 
-        System.out.println(orderPriceMessage(orderItems));
+        System.out.println(getOrderPriceMessage(orderItems));
 
         System.out.println("- - - - - - - - - - - - - - - - - - --");
 
-        System.out.println(pricePayingMessage());
+        System.out.println(getPricePayingMessage());
     }
 
-    private String orderItemMessage (OrderItem orderItem){
+    private String getOrderItemMessage(OrderItem orderItem){
         return orderItem.getItem().getName() + " - " + orderItem.getCount() + "개";
     }
 
-    private String orderPriceMessage (List<OrderItem> orderItems){
+    private String getOrderPriceMessage(List<OrderItem> orderItems){
         BigDecimal totalPrice = new BigDecimal(0);
         for (OrderItem orderItem : orderItems){
             BigDecimal priceSum = BigDecimal.valueOf(orderItem.getItem().getPrice().longValue() * orderItem.getCount());
@@ -50,7 +50,7 @@ public class OrderItemPrinter implements Printer {
         return "주문금액: " + totalPrice + "원";
     }
 
-    private String pricePayingMessage (){
+    private String getPricePayingMessage(){
         return "지불금액: " + this.order.getPrice() + "원";
     }
 }
