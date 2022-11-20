@@ -5,10 +5,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ItemIdPrompt implements Prompt {
-    public final String PRODUCT_PROMPT = "상품번호: ";
+    public final String idPrompt = "상품번호: ";
 
     @Override
     public void display() {
-        System.out.print(PRODUCT_PROMPT);
+        System.out.print(idPrompt);
     }
 }

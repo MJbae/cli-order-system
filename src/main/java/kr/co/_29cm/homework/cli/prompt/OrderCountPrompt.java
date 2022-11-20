@@ -5,10 +5,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class OrderCountPrompt implements Prompt {
-    public final String ORDER_COUNT_PROMPT = "주문수량: ";
+    public final String orderCountPrompt = "주문수량: ";
 
     @Override
     public void display() {
-        System.out.print(ORDER_COUNT_PROMPT);
+        System.out.print(orderCountPrompt);
     }
 }

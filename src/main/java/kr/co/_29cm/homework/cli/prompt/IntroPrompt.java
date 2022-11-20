@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class IntroPrompt implements PromptProvider {
-    public final String INTRO_MESSAGE = "입력[o(order): 주문, q(quit): 종료]: ";
+    public final String introMessage = "입력[o(order): 주문, q(quit): 종료]: ";
 
     @Override
     public AttributedString getPrompt() {
-        return new AttributedString(INTRO_MESSAGE,
+        return new AttributedString(introMessage,
                 AttributedStyle.DEFAULT.background(AttributedStyle.BLACK));
     }
 }
