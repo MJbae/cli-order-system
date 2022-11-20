@@ -22,7 +22,7 @@ public class OrderItemService {
     }
 
     @Transactional
-    public OrderItem save(OrderItem orderItem){
-        return repository.save(orderItem);
+    public void save(OrderItem orderItem){
+        repository.save(orderItem);
     }
 }

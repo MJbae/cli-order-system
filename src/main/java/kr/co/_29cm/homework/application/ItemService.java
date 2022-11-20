@@ -26,7 +26,7 @@ public class ItemService {
     }
 
     @Transactional
-    public Item save(Item item){
-        return repository.save(item);
+    public void save(Item item){
+        repository.save(item);
     }
 }
