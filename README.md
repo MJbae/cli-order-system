@@ -3,10 +3,10 @@
 
 ### How to run
 * Run Commands Below
-```dockerfile
+```shell
 docker build -t order-system:latest .
 ```
-```dockerfile
+```shell
 docker run -it -p 50152:50152 order-system:latest
 ```
 
@@ -17,5 +17,5 @@ docker run -it -p 50152:50152 order-system:latest
   
 ### Documents
 * [Flow Chart](https://github.com/MJbae/order-system-based-on-cli/wiki/Flow-Chart)
-* [UML](https://github.com/MJbae/order-system-based-on-cli/wiki/UML)
+* [UML for Entity](https://github.com/MJbae/order-system-based-on-cli/wiki/UML)
 * [Converting-CSV-to-SQL](https://github.com/MJbae/order-system-based-on-cli/wiki/Converting-CSV-to-SQL)
