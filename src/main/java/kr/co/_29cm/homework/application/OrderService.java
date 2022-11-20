@@ -2,7 +2,6 @@ package kr.co._29cm.homework.application;
 
 import kr.co._29cm.homework.cli.OrderDto;
 import kr.co._29cm.homework.exception.SoldOutException;
-import kr.co._29cm.homework.infra.OrderItemRepository;
 import kr.co._29cm.homework.infra.OrderRepository;
 import kr.co._29cm.homework.domain.Item;
 import kr.co._29cm.homework.domain.Order;
@@ -59,11 +58,17 @@ public class OrderService {
             order.markPrice(totalPrice);
         }
 
+        this.save(order, orderItems);
+
+        return order;
+    }
+
+    private void save(Order order, List<OrderItem> orderItems){
         repository.save(order);
+
         for (OrderItem orderItem : orderItems) {
             orderItemService.save(orderItem);
         }
 
-        return order;
     }
 }
