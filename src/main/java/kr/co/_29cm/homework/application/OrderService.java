@@ -33,7 +33,7 @@ public class OrderService {
         BigDecimal totalPrice = new BigDecimal(0);
 
         for (OrderDto orderDto : orderDtos) {
-            Item item = itemService.loadOne(orderDto.getItemId());
+            Item item = itemService.loadOneBy(orderDto.getItemId());
             int itemCountOrdering = orderDto.getItemCount();
             int itemStockQuantity = item.getStockQuantity();
 

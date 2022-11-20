@@ -18,7 +18,7 @@ public class OrderItemPrinter implements Printer {
 
     @Override
     public void show() {
-        List<OrderItem> orderItems = orderItemService.loadBy(this.order);
+        List<OrderItem> orderItems = orderItemService.loadOneBy(this.order);
 
         System.out.println("- - - - - - - - - - - - -");
         for (OrderItem item : orderItems) {

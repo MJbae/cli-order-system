@@ -35,7 +35,7 @@ public class OrderConcurrencyTest {
 
     @BeforeEach
     void setUp() {
-        Item item = itemService.loadOne(itemId);
+        Item item = itemService.loadOneBy(itemId);
         stockQuantity = item.getStockQuantity();
         firstOrderDtos.add(new OrderDto(itemId, orderItemCount));
     }

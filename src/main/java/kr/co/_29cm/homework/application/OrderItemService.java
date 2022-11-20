@@ -17,7 +17,7 @@ public class OrderItemService {
         this.orderItemRepository = orderItemRepository;
     }
 
-    public List<OrderItem> loadBy(Order order){
+    public List<OrderItem> loadOneBy(Order order){
         return orderItemRepository.findByOrder(order);
     }
 }

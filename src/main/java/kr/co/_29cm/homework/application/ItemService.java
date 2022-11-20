@@ -21,7 +21,7 @@ public class ItemService {
         return repository.findAll();
     }
 
-    public Item loadOne(Long id){
+    public Item loadOneBy(Long id){
         return repository.findByIdForUpdate(id);
     }
 

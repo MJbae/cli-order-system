@@ -71,7 +71,7 @@ class OrderTest {
                 item = new Item(itemId, itemName, itemPrice, stockQuantity);
                 orderItem = new OrderItem(orderMocking, item, orderCount);
 
-                given(itemService.loadOne(any())).willReturn(item);
+                given(itemService.loadOneBy(any())).willReturn(item);
                 given(orderItemRepository.findByOrder(any())).willReturn(List.of(orderItem));
             }
 
@@ -100,7 +100,7 @@ class OrderTest {
                 item = new Item(itemId, itemName, itemPrice, stockQuantity);
                 orderItem = new OrderItem(orderMocking, item, orderCount);
 
-                given(itemService.loadOne(any())).willReturn(item);
+                given(itemService.loadOneBy(any())).willReturn(item);
                 given(orderItemRepository.findByOrder(any())).willReturn(List.of(orderItem));
             }
 
@@ -130,7 +130,7 @@ class OrderTest {
                 orderItem = new OrderItem(orderMocking, item, orderCount);
                 secondOrderItem = new OrderItem(orderMocking, item, orderCount);
 
-                given(itemService.loadOne(any())).willReturn(item);
+                given(itemService.loadOneBy(any())).willReturn(item);
                 given(orderItemRepository.findByOrder(any())).willReturn(List.of(orderItem, secondOrderItem));
             }
 
@@ -161,7 +161,7 @@ class OrderTest {
                 item = new Item(itemId, itemName, itemPrice, stockQuantity);
                 orderItem = new OrderItem(orderMocking, item, orderCount);
 
-                given(itemService.loadOne(any())).willReturn(item);
+                given(itemService.loadOneBy(any())).willReturn(item);
                 given(orderItemRepository.findByOrder(any())).willReturn(List.of(orderItem));
             }
 
