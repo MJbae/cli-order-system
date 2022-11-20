@@ -1,5 +1,6 @@
 package kr.co._29cm.homework.application;
 
+import kr.co._29cm.homework.application.interfaces.OrderService;
 import kr.co._29cm.homework.cli.OrderDto;
 import kr.co._29cm.homework.exception.SoldOutException;
 import kr.co._29cm.homework.infra.OrderRepository;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class GeneralOrderService {
+public class GeneralOrderService implements OrderService<Order, OrderDto> {
     private final OrderRepository repository;
     private final OrderProductService orderProductService;
     private final ProductService productService;

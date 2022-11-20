@@ -1,5 +1,6 @@
 package kr.co._29cm.homework.application;
 
+import kr.co._29cm.homework.application.interfaces.OrderItemService;
 import kr.co._29cm.homework.infra.OrderItemRepository;
 import kr.co._29cm.homework.domain.Order;
 import kr.co._29cm.homework.domain.OrderItem;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
-public class OrderProductService {
+public class OrderProductService implements OrderItemService<OrderItem, Order> {
     private final OrderItemRepository repository;
 
     public OrderProductService(OrderItemRepository orderItemRepository) {

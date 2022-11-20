@@ -1,5 +1,6 @@
 package kr.co._29cm.homework.application;
 
+import kr.co._29cm.homework.application.interfaces.ItemService;
 import kr.co._29cm.homework.infra.ItemRepository;
 import kr.co._29cm.homework.domain.Item;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
-public class ProductService {
+public class ProductService implements ItemService<Item> {
 
     private final ItemRepository repository;
 
