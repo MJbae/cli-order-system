@@ -1,10 +1,15 @@
 ## Order System
 > Shopping Mall Order System based on CLI
 
-### How to use
+### How to run
+* Run Commands Below
+```shell
+docker build -t order-system:latest .
+docker run -it -p 5432:5432 order-system:latest
+```
 
 ### Technologies Used
-* Application Framework: Spring Boot, Spring Shell
+* Application Framework: Spring Shell
 * RDBMS & ORM: H2, Spring Data JPA
 * Test Framework: JUnit
   
