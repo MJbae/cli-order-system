@@ -12,11 +12,11 @@ public class ItemPrinter implements Printer {
         this.itemService = itemService;
     }
 
-    private final String LIST_CATEGORY = "상품번호                 상품명               판매가격                재고수";
+    private final String listCategory = "상품번호                 상품명               판매가격                재고수";
 
     @Override
     public void show() {
-        System.out.println(LIST_CATEGORY);
+        System.out.println(listCategory);
         itemService.loadAll()
                 .forEach(item -> System.out.println(getItemMessage(item)));
     }
