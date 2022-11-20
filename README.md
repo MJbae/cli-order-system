@@ -3,9 +3,11 @@
 
 ### How to run
 * Run Commands Below
-```shell
+```dockerfile
 docker build -t order-system:latest .
-docker run -it -p 5432:5432 order-system:latest
+```
+```dockerfile
+docker run -it -p 50152:50152 order-system:latest
 ```
 
 ### Technologies Used

@@ -14,5 +14,5 @@ RUN ./gradlew bootJar
 FROM openjdk:11
 COPY --from=builder /build/libs/*.jar ${PROJECT_NAME}.jar
 
-EXPOSE 5432
+EXPOSE 50152
 ENTRYPOINT java -jar ${PROJECT_NAME}.jar
