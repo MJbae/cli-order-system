@@ -20,4 +20,9 @@ public class OrderItemService {
     public List<OrderItem> loadOneBy(Order order){
         return orderItemRepository.findByOrder(order);
     }
+
+    @Transactional
+    public OrderItem save(OrderItem orderItem){
+        return orderItemRepository.save(orderItem);
+    }
 }

@@ -51,8 +51,8 @@ class OrderTest {
     @BeforeEach
     void setUp() {
         orderDtos = new ArrayList<>();
-        orderService = new OrderService(orderRepository, orderItemRepository, itemService);
         orderItemService = new OrderItemService(orderItemRepository);
+        orderService = new OrderService(orderRepository, orderItemService, itemService);
     }
 
     @Nested

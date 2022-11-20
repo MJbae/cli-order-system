@@ -17,12 +17,12 @@ import java.util.List;
 @Service
 public class OrderService {
     private final OrderRepository repository;
-    private final OrderItemRepository orderItemRepository;
+    private final OrderItemService orderItemService;
     private final ItemService itemService;
 
-    public OrderService(OrderRepository repository, OrderItemRepository orderItemRepository, ItemService itemService) {
+    public OrderService(OrderRepository repository, OrderItemService orderItemService, ItemService itemService) {
         this.repository = repository;
-        this.orderItemRepository = orderItemRepository;
+        this.orderItemService = orderItemService;
         this.itemService = itemService;
     }
 
@@ -61,7 +61,7 @@ public class OrderService {
 
         repository.save(order);
         for (OrderItem orderItem : orderItems) {
-            orderItemRepository.save(orderItem);
+            orderItemService.save(orderItem);
         }
 
         return order;
