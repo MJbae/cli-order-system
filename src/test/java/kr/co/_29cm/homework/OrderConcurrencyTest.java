@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 public class OrderConcurrencyTest {
     @Autowired
-    private OrderService orderService;
+    private OrderService service;
     @Autowired
     private ItemService itemService;
 
@@ -52,7 +52,7 @@ public class OrderConcurrencyTest {
         for (int i = 1; i <= numberOfExecution; i++) {
             executorService.execute(() -> {
                 try{
-                    orderService.order(firstOrderDtos);
+                    service.order(firstOrderDtos);
                     successCount.getAndIncrement();
                     System.out.println("성공");
                 } catch (SoldOutException soldOutException) {

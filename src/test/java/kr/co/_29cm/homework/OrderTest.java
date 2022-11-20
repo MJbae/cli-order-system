@@ -30,10 +30,10 @@ import java.util.List;
 @DisplayName("OrderService")
 @Transactional
 class OrderTest {
-    private OrderService orderService;
+    private OrderService service;
     private OrderItemService orderItemService;
 
-    private final OrderRepository orderRepository = mock(OrderRepository.class);
+    private final OrderRepository repository = mock(OrderRepository.class);
     private final OrderItemRepository orderItemRepository = mock(OrderItemRepository.class);
     private final ItemService itemService = mock(ItemService.class);
     private final Order orderMocking = mock(Order.class);
@@ -52,7 +52,7 @@ class OrderTest {
     void setUp() {
         orderDtos = new ArrayList<>();
         orderItemService = new OrderItemService(orderItemRepository);
-        orderService = new OrderService(orderRepository, orderItemService, itemService);
+        service = new OrderService(repository, orderItemService, itemService);
     }
 
     @Nested
@@ -78,7 +78,7 @@ class OrderTest {
             @DisplayName("주문 엔티티의 price에 배송료를 포함하지 않고 반환한다")
             void it_returns_price_not_including_delivery_fee() {
                 orderDtos.add(new OrderDto(itemId, orderCount));
-                Order order = orderService.order(orderDtos);
+                Order order = service.order(orderDtos);
 
                 BigDecimal actualPrice = order.getPrice();
                 BigDecimal expectedPrice = itemPrice.multiply(BigDecimal.valueOf(orderCount));
@@ -106,7 +106,7 @@ class OrderTest {
             @DisplayName("주문 엔티티의 price에 배송료를 포함하여 반환한다")
             void it_returns_price_including_delivery_fee() {
                 orderDtos.add(new OrderDto(itemId, orderCount));
-                Order order = orderService.order(orderDtos);
+                Order order = service.order(orderDtos);
 
                 BigDecimal actualPrice = order.getPrice();
                 BigDecimal expectedPrice = itemPrice.multiply(BigDecimal.valueOf(orderCount)).add(deliveryFee);
@@ -136,7 +136,7 @@ class OrderTest {
             void it_returns_price_including_every_items_ordered() {
                 orderDtos.add(new OrderDto(itemId, orderCount));
                 orderDtos.add(new OrderDto(itemId, orderCount));
-                Order order = orderService.order(orderDtos);
+                Order order = service.order(orderDtos);
 
                 BigDecimal actualPrice = order.getPrice();
                 BigDecimal expectedPrice = itemPrice.multiply(BigDecimal.valueOf(orderCount));
@@ -166,7 +166,7 @@ class OrderTest {
             void it_returns_price_including_every_items_ordered() {
                 orderDtos.add(new OrderDto(itemId, orderCount));
 
-                assertThatThrownBy(() -> orderService.order(orderDtos))
+                assertThatThrownBy(() -> service.order(orderDtos))
                         .isInstanceOf(SoldOutException.class);
             }
         }
