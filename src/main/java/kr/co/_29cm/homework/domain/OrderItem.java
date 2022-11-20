@@ -35,8 +35,7 @@ public class OrderItem {
     @Override
     public String toString() {
         return "OrderItem{" +
-                "item=" + item.toString() +
-                ", count=" + count +
+                "id=" + id +
                 '}';
     }
 }

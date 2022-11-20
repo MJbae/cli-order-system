@@ -33,7 +33,6 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", price=" + price +
                 '}';
     }
 }
