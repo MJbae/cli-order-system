@@ -10,7 +10,7 @@ import javax.persistence.LockModeType;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
-    @Lock(value = LockModeType.PESSIMISTIC_WRITE)
+    @Lock(value = LockModeType.OPTIMISTIC)
     @Query("select i from Item i where i.id = :id")
     Item findByIdForUpdate(@Param("id") Long id);
 }
