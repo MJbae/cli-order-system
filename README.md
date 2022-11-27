@@ -11,9 +11,9 @@ docker run -it -p 50152:50152 order-system:latest
 ```
 
 ### TDD 기반 구현 절차
-1. 코드 작업 전에 요구사항을 분석하여 전체적인 로직을 직관적으로 파악하기 위해 ‘Flow Chart’ 작성
+1. 코드 작업 전에 요구사항을 분석하여 전체적인 로직을 직관적으로 파악하기 위해 [Flow Chart](flow-chart.png) 작성
 2. 가장 간단한 방식(Happy Path)의 주문 기능 구현
-3. ‘Flow Chart’에 작성한 주요 분기점에 대해 실패하는 단위 테스트 작성 
+3. [Flow Chart](flow-chart.png)에 작성한 주요 분기점에 대해 실패하는 단위 테스트 작성 
 4. 실패하는 테스트를 성공시키기 위해 코드 수정
 5. 2번과 3번 과정을 충분히 반복한 후, 테스트 기반으로 전체적인 코드 리팩토링
 
@@ -29,6 +29,10 @@ docker run -it -p 50152:50152 order-system:latest
 * Application Framework: Spring Shell
 * RDBMS & ORM: H2, Spring Data JPA
 * Test Framework: JUnit
+
+### 작성 문서
+* [Flow Chart](flow-chart.png)
+* [Converting CSV to SQL](converting-csv-to-sql.md)
 
 ### 참고 자료
 * Spring Shell: [Baeldung](https://www.baeldung.com/spring-shell-cli)
