@@ -1,4 +1,4 @@
-## 주문 시스템
+## 주문 시스템 [![Java CI with Gradle](https://github.com/MJbae/cli-order-system/actions/workflows/ci-script.yml/badge.svg)](https://github.com/MJbae/cli-order-system/actions/workflows/ci-script.yml)
 > CLI 기반 주문 시스템
 
 ### 실행 방법
