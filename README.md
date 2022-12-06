@@ -2,7 +2,7 @@
 > CLI 기반 주문 시스템
 
 ### 실행 방법
-프로젝트의 루트 디렉토리에서 이하의 명령 실행
+프로젝트의 루트에서 이하의 명령 실행
 ```shell
 docker build -t order-system:latest .
 ```
